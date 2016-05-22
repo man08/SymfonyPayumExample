@@ -1,0 +1,37 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+
+    app.payum.extension.paypal:
+        class: AppBundle\Extension\PaypalExtension
+        tags:
+            - { name: payum.extension, gateway: payopal }
+
+    app.payum.redsys.gateway_factory:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments: [Crevillo\Payum\Redsys\RedsysGatewayFactory]
+        tags:
+            - { name: payum.gateway_factory_builder, factory: redsys }
+
+#    app.payum.skeleton.gateway_factory:
+#        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+#        arguments: [Man\Skeleton\SkeletonGatewayFactory]
+#        tags:
+#            - { name: payum.gateway_factory_builder, factory: skeleton }
+
+#    app.payum.extension.event_dispatcher:
+#        class: Payum\Core\Bridge\Symfony\Extension\EventDispatcherExtension
+#        arguments: ["@event_dispatcher"]
+#        tags:
+#            - { name: payum.extension, gateway: payopal, prepend: false }
+#
+#    app.payum.listener:
+#        class: AppBundle\EventListener\PaymentListener
+#        tags:
+#            - { name: kernel.event_subscriber }
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
